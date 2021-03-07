@@ -1,0 +1,1 @@
+SELECT O.buyer_id, O.buy_date, L.book_name, L.price FROM orderInfo O LEFT JOIN library L ON O.book_id = L.book_id WHERE L.book_name = 'Looking with Elice' OR O.buy_date BETWEEN '2020-07-27' AND '2020-07-31' ORDER BY O.buy_date ASC
