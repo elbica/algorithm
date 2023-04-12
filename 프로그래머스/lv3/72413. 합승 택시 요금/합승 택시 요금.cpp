@@ -31,16 +31,17 @@ int solution(int n, int s, int a, int b, vector<vector<int>> fares) {
     }
     
     vector<int> init(n+1, 987654321);
+    vector<int> start_a(n+1, 987654321);
+    vector<int> start_b(n+1, 987654321);
     int answer = 987654321;
     
     cal(s, init, graph);
+    cal(a, start_a, graph);
+    cal(b, start_b, graph);
+    
     for(int i=1; i<=n; i++){
         if(init[i] == 987654321) continue;
-        vector<int> next(n+1, 987654321);
-        cal(i, next , graph );
-        
-        answer = min(answer, init[i] + next[a] + next[b]);
-        // cout<<init[i]<<' '<<next[a]<<' '<<next[b]<<' '<< answer<<endl;
+        answer = min(answer, init[i] + start_a[i] + start_b[i]);
     }
     
     return answer;
