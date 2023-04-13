@@ -7,7 +7,7 @@
 using namespace std;
 vector<vector<int>> graph;
 vector<int> postorderV, prevorderV; 
-unordered_map<string, int> um;
+int idMap[100001];
 int graphRoot;
 
 void run(int start, int end, int prev, vector<vector<int>>& nodeinfo){
@@ -16,7 +16,7 @@ void run(int start, int end, int prev, vector<vector<int>>& nodeinfo){
         if(maxY < nodeinfo[i][1]){
             maxY = nodeinfo[i][1];
             idx = i;
-            root = um[to_string(nodeinfo[i][0])+'-'+to_string(nodeinfo[i][1])];
+            root = idMap[nodeinfo[i][0]];
         }
     }
     // cout<<prev<<' '<<root<<endl;
@@ -35,7 +35,7 @@ void order(int cur, int o){
 
 vector<vector<int>> solution(vector<vector<int>> nodeinfo) {
     int id = 1;
-    for(auto n : nodeinfo) um[to_string(n[0])+'-'+to_string(n[1])] = id++;
+    for(auto n : nodeinfo) idMap[n[0]] = id++;
     graph.resize(id);
     
     sort(nodeinfo.begin(), nodeinfo.end());
