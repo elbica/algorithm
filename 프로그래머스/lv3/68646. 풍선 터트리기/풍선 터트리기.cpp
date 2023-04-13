@@ -7,26 +7,24 @@ using namespace std;
 
 int solution(vector<int> a) {
     int answer = a.size();
-    set<int> left, right;
-    for(auto v : a) right.insert(v);
     
-    for(auto ball : a){
-        right.erase(ball);
-        auto leftIter = left.begin(), rightIter = right.begin();
-        left.insert(ball);
-        
-        if(leftIter == left.end() || rightIter == right.end()) continue;
-        // cout<<*leftIter<<' '<<ball<<' '<<*rightIter<<endl;
-        if(ball > *leftIter && ball > *rightIter) answer--;
+    vector<int> lv(a.size()), rv(a.size());
+    int lmin = a[0];
+    for(int i=0; i<a.size(); i++){
+        lv[i] = lmin;
+        lmin = min(lmin, a[i]);
     }
     
-    /*
-      1. left, right min set
-      2. left: 0~cur-1, right: cur ~ n
-      3. right.erase(cur)
-      4. left의 min값, right의 min값이 모두 cur보다 작으면 answer--
-      5. left.insert(cur)
-    */
+    int rmin = a.back();
+    for(int i=a.size()-1; i>=0; i--){
+        rv[i] = rmin;
+        rmin = min(rmin, a[i]);
+    }
+    
+    for(int i=0; i<a.size(); i++){
+        int left = lv[i], right = rv[i];
+        if(a[i] > left && a[i] > right) answer--;
+    }
     
     
     return answer;
