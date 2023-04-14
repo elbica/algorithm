@@ -20,13 +20,13 @@ function solution(play_time, adv_time, logs) {
         sums[i] += sums[i-1];
     }
     
-    let time = 0, start = 0, end = 1, temp = 0, saveStartTime = 0;
-    for(end; end<=advTime; end++) time += sums[end - 1];
+    let time = 0, start = 0, end = 0, temp = 0, saveStartTime = 0;
+    for(end; end<advTime; end++) time += sums[end];
     temp = time;
     // console.log({start, end, sum: sums[start], e: sums[end], time})
     
-    for(; end<=playTime + 1; end++, start++){
-        time = time - sums[start] + sums[end -1];
+    for(; end<=playTime; end++, start++){
+        time = time - sums[start] + sums[end];
         if(temp < time){ saveStartTime = start+1; temp = time;}
     }
     
